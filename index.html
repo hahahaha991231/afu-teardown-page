@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>蚂蚁阿福产品拆解 · 结构化呈现</title>
+<style>
+:root{
+  --bg:#f5f7fa; --panel:#ffffff; --ink:#12212e; --ink2:#41566b; --ink3:#7b8ea1;
+  --line:#e2e8ef; --line2:#eef2f6;
+  --brand:#0f7b6c; --brand2:#12907e; --brand-soft:#e6f4f1;
+  --blue:#1f5fa8; --blue-soft:#e8f0fa;
+  --amber:#a86400; --amber-soft:#fdf3e2;
+  --red:#b03a3a; --red-soft:#fdecec;
+  --violet:#5b4bb0; --violet-soft:#eeecfa;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(16,36,54,.05),0 8px 24px rgba(16,36,54,.06);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC","Source Han Sans SC",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:14.5px;line-height:1.75;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 22px 90px}
+
+/* ---------- header ---------- */
+.hero{
+  background:linear-gradient(135deg,#0d6a5d 0%,#128b78 45%,#1f7fa8 100%);
+  color:#fff;padding:36px 0 32px;position:relative;overflow:hidden;
+}
+.hero::after{
+  content:"";position:absolute;right:-90px;top:-90px;width:340px;height:340px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.16),rgba(255,255,255,0) 70%);
+}
+.hero .wrap{padding-bottom:0}
+.hero h1{margin:0;font-size:31px;letter-spacing:.5px;font-weight:700}
+
+/* ---------- nav ---------- */
+.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{padding:0 22px;display:flex;gap:4px;overflow-x:auto}
+.nav a{
+  color:var(--ink2);text-decoration:none;font-size:13px;padding:13px 11px;white-space:nowrap;
+  border-bottom:2px solid transparent;font-weight:500;
+}
+.nav a:hover{color:var(--brand);border-bottom-color:var(--brand)}
+
+/* ---------- sections ---------- */
+section{margin-top:34px}
+.sec-head{display:flex;align-items:flex-start;gap:14px;margin:0 0 16px}
+.sec-no{
+  flex:none;width:40px;height:40px;border-radius:11px;background:var(--brand);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;letter-spacing:.5px;
+  box-shadow:0 4px 12px rgba(15,123,108,.28);
+}
+.sec-head h2{margin:0;font-size:20.5px;font-weight:700;letter-spacing:.3px;line-height:1.35}
+.sec-head .desc{color:var(--ink3);font-size:12.8px;margin-top:3px}
+
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow);margin-bottom:16px}
+.card h3{margin:0 0 12px;font-size:16px;font-weight:700;display:flex;align-items:center;gap:8px}
+.card h3 .dot{width:6px;height:16px;border-radius:3px;background:var(--brand2);display:inline-block}
+.card h4{margin:18px 0 8px;font-size:14px;font-weight:700;color:var(--ink)}
+.card h4:first-child{margin-top:0}
+p{margin:0 0 10px}
+.muted{color:var(--ink3)}
+.small{font-size:12.6px}
+.src{font-size:12px;color:var(--ink3);margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+.src b{color:var(--ink2);font-weight:600}
+
+/* ---------- KPI ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:13px;margin-bottom:18px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:13px;padding:16px 16px 14px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--brand)}
+.kpi.b::before{background:var(--blue)}
+.kpi.a::before{background:var(--amber)}
+.kpi.v::before{background:var(--violet)}
+.kpi .k-label{font-size:12.3px;color:var(--ink3);margin-bottom:6px;letter-spacing:.2px}
+.kpi .k-val{font-size:25px;font-weight:700;color:var(--ink);line-height:1.15;letter-spacing:.3px}
+.kpi .k-val small{font-size:14px;font-weight:600;color:var(--ink2);margin-left:2px}
+.kpi .k-note{font-size:11.5px;color:var(--ink3);margin-top:7px;line-height:1.5}
+
+/* ---------- tables ---------- */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:11px;margin:10px 0 4px}
+table{border-collapse:collapse;width:100%;font-size:13.2px;background:#fff;min-width:520px}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line2);line-height:1.65}
+thead th{background:#f3f6f9;color:var(--ink2);font-weight:600;font-size:12.6px;white-space:nowrap;border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#fafcfd}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.tbl-note{font-size:12px;color:var(--ink3);margin-top:8px}
+.tag{display:inline-block;font-size:11.5px;padding:2px 8px;border-radius:6px;font-weight:600;white-space:nowrap}
+.tag.g{background:var(--brand-soft);color:var(--brand)}
+.tag.b{background:var(--blue-soft);color:var(--blue)}
+.tag.a{background:var(--amber-soft);color:var(--amber)}
+.tag.r{background:var(--red-soft);color:var(--red)}
+.tag.v{background:var(--violet-soft);color:var(--violet)}
+.tag.n{background:#f0f3f6;color:var(--ink2)}
+
+/* ---------- flow bars ---------- */
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;margin:14px 0 6px}
+.flow .node{
+  flex:1 1 140px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:12px 13px;
+  position:relative;margin-right:26px;box-shadow:0 1px 3px rgba(16,36,54,.05)
+}
+.flow .node:last-child{margin-right:0}
+.flow .node::after{
+  content:"";position:absolute;right:-19px;top:50%;transform:translateY(-50%);
+  width:0;height:0;border-left:9px solid var(--brand2);border-top:6px solid transparent;border-bottom:6px solid transparent;opacity:.65;
+}
+.flow .node:last-child::after{display:none}
+.flow .node .n-t{font-size:13.2px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.flow .node .n-d{font-size:11.8px;color:var(--ink3);line-height:1.55}
+.flow .node.hl{background:linear-gradient(135deg,#0d6a5d,#128b78);border-color:transparent;color:#fff}
+.flow .node.hl .n-d{color:rgba(255,255,255,.88)}
+.flow .node.hl::after{border-left-color:#128b78;opacity:1}
+.flow .node.soft{background:#fbfdfe}
+
+/* funnel */
+.funnel{display:grid;gap:8px;margin:14px 0 6px}
+.funnel .f-row{display:grid;grid-template-columns:112px 1fr;gap:12px;align-items:stretch}
+.funnel .f-layer{
+  border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:#fff;font-weight:700;font-size:13.5px;padding:10px 6px;text-align:center;letter-spacing:.5px;
+}
+.funnel .f-body{background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 14px}
+.funnel .f-q{font-size:12.4px;color:var(--ink2);margin-top:4px}
+.funnel .f-q span{color:var(--ink3)}
+.l1{background:linear-gradient(135deg,#0b5c9c,#1f7fc4)}
+.l2{background:linear-gradient(135deg,#0f7b6c,#17a08a)}
+.l3{background:linear-gradient(135deg,#5b4bb0,#7a68d4)}
+.l4{background:linear-gradient(135deg,#a86400,#c98a1e)}
+.l5{background:linear-gradient(135deg,#41566b,#647a91)}
+
+/* ---------- agent orchestration ---------- */
+.orch{background:#fbfdfe;border:1px solid var(--line);border-radius:12px;padding:18px 16px;margin:12px 0}
+.orch .band{
+  border:1px solid var(--line);border-radius:11px;background:#fff;padding:12px 14px;margin:0 auto;max-width:840px;text-align:center
+}
+.orch .band.context{background:linear-gradient(135deg,#eef7f5,#e9f2fa);border-color:#cfe6e0}
+.orch .band.ctrl{background:linear-gradient(135deg,#0d6a5d,#128b78);color:#fff;border:none;box-shadow:0 6px 18px rgba(13,106,93,.28)}
+.orch .band.ctrl .bt{font-size:15px;font-weight:700}
+.orch .band.ctrl .bd{font-size:12px;opacity:.92;margin-top:3px}
+.orch .band .bt{font-size:13.6px;font-weight:700}
+.orch .band .bd{font-size:12.1px;color:var(--ink3);margin-top:3px}
+.orch .band.ctrl .bd{color:rgba(255,255,255,.9)}
+.orch .arrow{text-align:center;color:var(--brand2);font-size:17px;line-height:1;margin:7px 0;opacity:.8}
+.orch .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:9px;margin-top:2px}
+.orch .ag{border:1px solid var(--line);border-top:3px solid var(--brand2);border-radius:10px;background:#fff;padding:10px 12px}
+.orch .ag .at{font-size:12.9px;font-weight:700;margin-bottom:5px}
+.orch .ag ul{margin:0;padding-left:15px}
+.orch .ag li{font-size:11.6px;color:var(--ink2);line-height:1.6;margin-bottom:2px}
+.orch .ag.doc{border-top-color:var(--blue)}
+.orch .ag.guard{border-top-color:var(--red);background:#fffafa}
+.orch .lane-label{font-size:12px;font-weight:700;color:var(--ink3);letter-spacing:.6px;margin:14px 0 6px;text-align:center}
+
+/* ---------- six-part ---------- */
+.six{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:13px}
+.six .p{border:1px solid var(--line);border-radius:12px;background:#fff;padding:15px 16px;box-shadow:0 1px 3px rgba(16,36,54,.04)}
+.six .p .pt{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.six .p .pi{width:24px;height:24px;border-radius:7px;background:var(--brand-soft);color:var(--brand);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex:none}
+.six .p .pd{font-size:12.6px;color:var(--ink2);line-height:1.7}
+.six .p .pe{font-size:11.8px;color:var(--ink3);margin-top:8px;padding-top:8px;border-top:1px dashed var(--line)}
+
+/* ---------- callouts ---------- */
+.callout{border-radius:11px;padding:13px 16px;font-size:13px;line-height:1.75;margin:12px 0}
+.callout.warn{background:var(--amber-soft);border:1px solid #f0dcb8;color:#6b4300}
+.callout.info{background:var(--blue-soft);border:1px solid #cfe0f2;color:#173f6b}
+.callout.miss{background:#f4f6f8;border:1px dashed #cdd6df;color:var(--ink2)}
+.callout.key{background:var(--brand-soft);border:1px solid #c9e5df;color:#0a4f45}
+.callout b{font-weight:700}
+
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+@media(max-width:820px){.grid2,.grid3{grid-template-columns:1fr}.funnel .f-row{grid-template-columns:88px 1fr}.flow .node{margin-right:0;margin-bottom:22px}}
+
+.score-hero{display:flex;align-items:center;gap:20px;flex-wrap:wrap;background:linear-gradient(135deg,#0d6a5d,#128b78);color:#fff;border-radius:13px;padding:20px 24px;margin-bottom:14px}
+.score-hero .big{font-size:46px;font-weight:700;line-height:1;letter-spacing:1px}
+.score-hero .big small{font-size:16px;font-weight:600;opacity:.85}
+.score-hero .txt{font-size:13.2px;line-height:1.7;max-width:600px;opacity:.95}
+
+ul.tight{margin:6px 0 10px;padding-left:20px}
+ul.tight li{margin-bottom:5px}
+ul.tight li::marker{color:var(--brand2)}
+footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.2px;line-height:1.8}
+@media print{
+  body{background:#fff;font-size:12px}
+  .nav{display:none}
+  .card,.kpi{box-shadow:none;break-inside:avoid}
+  section{break-inside:avoid}
+  .hero{background:#0d6a5d !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .flow .node.hl,.score-hero,.orch .band.ctrl,.funnel .f-layer{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>蚂蚁阿福 · 产品拆解</h1>
+  </div>
+</header>
+
+<nav class="nav">
+  <div class="wrap">
+    <a href="#summary">结论先行</a>
+    <a href="#s1">一 · 拆解思路</a>
+    <a href="#s2">二 · 产品介绍</a>
+    <a href="#s3">三 · 效果体验</a>
+    <a href="#s4">四 · 产品定位</a>
+    <a href="#s5">五 · 产品拆解</a>
+    <a href="#s5-agent">五 · Agent 构成</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ 结论先行 ============ -->
+<section id="summary">
+  <div class="sec-head">
+    <div class="sec-no">结论</div>
+    <div>
+      <h2>结论先行：一句话看懂阿福</h2>
+      <div class="desc">蚂蚁阿福是蚂蚁集团旗下把 AI 做成「健康朋友」的应用，用一条连续任务链把「有健康疑问」接到「看懂信息、管理健康、找到医疗服务」</div>
+    </div>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi">
+      <div class="k-label">累计服务用户</div>
+      <div class="k-val">&gt;1<small>亿</small></div>
+      <div class="k-note">口径说明：这是「累计服务用户」，<b>不能写成月活用户</b></div>
+    </div>
+    <div class="kpi a">
+      <div class="k-label">三线及以下城市用户占比</div>
+      <div class="k-val">&gt;55<small>%</small></div>
+      <div class="k-note">口径：累计服务用户</div>
+    </div>
+    <div class="kpi a">
+      <div class="k-label">老年用户占比</div>
+      <div class="k-val">&gt;25<small>%</small></div>
+      <div class="k-note">口径：累计服务用户</div>
+    </div>
+    <div class="kpi v">
+      <div class="k-label">效果体验综合得分</div>
+      <div class="k-val">81<small>/ 100</small></div>
+      <div class="k-note">能力维度评测表合计，落在 70–89 档</div>
+    </div>
+    <div class="kpi b">
+      <div class="k-label">报告解读准确率</div>
+      <div class="k-val">&gt;95<small>%</small></div>
+      <div class="k-note">覆盖 99% 常见检验检查报告</div>
+    </div>
+    <div class="kpi b">
+      <div class="k-label">医疗服务网络</div>
+      <div class="k-val">5000<small>+ 医院</small></div>
+      <div class="k-note">另有 30 万名真人医生在线问诊</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>五条核心结论</h3>
+    <ul class="tight">
+      <li><b>定位上</b>，阿福把「AI 健康朋友」落成三个入口 —— 阿福（即时提问、报告解读、AI 诊室、找医生）、健康（饮食活动与设备数据）、就医／我的（医疗服务、订单、家庭成员与健康档案），同时承接<b>偶发需求</b>与<b>持续需求</b>。</li>
+      <li><b>结构上</b>，产品是一个底座（蚂蚁医疗大模型）+ 三大模块（健康问答／健康陪伴／健康服务）+ 三层供给（AI 自服务 → 名医 AI 分身 → 真人医生）。</li>
+      <li><b>效果上</b>，用一个连续场景（看不懂体检报告 → 报告解读 → 多轮追问 → 就医服务 → 健康档案）测试，能力维度评测表合计 <b>81/100</b>，落于「主流程可用，个别解释或跳转需要用户补充、核对」一档。</li>
+      <li><b>技术上</b>，表层是一句健康疑问，底层是模拟医疗团队分工的<b>多智能体系统</b>：1 个主控 Agent 负责识别、拆解、编排、汇总，多个专科／角色子 Agent 并行承接，全部共享一份病例级 <code>case_context</code>。</li>
+      <li><b>商业上</b>，C 端咨询与报告解读免费，用免费换入口，再把确有需要的用户导向挂号、问诊、购药、支付等服务；但阿福具体从哪些服务收费、如何分成、AI 业务何时盈利，公开资料不足以确认。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 一 ============ -->
+<section id="s1">
+  <div class="sec-head">
+    <div class="sec-no">一</div>
+    <div>
+      <h2>拆解产品的思路：五层漏斗</h2>
+      <div class="desc">四列结构：层级 · 动作 · 产物 · 解决的核心问题</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>五层漏斗的推进顺序</h3>
+    <div class="flow">
+      <div class="node hl"><div class="n-t">① 商业层</div><div class="n-d">看官网介绍 + 看创始人访谈</div></div>
+      <div class="node"><div class="n-t">② 用户层</div><div class="n-d">按场景深度体验</div></div>
+      <div class="node"><div class="n-t">③ 技术层</div><div class="n-d">拆技术流程 → 拆 Agent 组成 → 拆单个 Agent</div></div>
+      <div class="node"><div class="n-t">④ 模型层</div><div class="n-d">分析调用的模型</div></div>
+      <div class="node"><div class="n-t">⑤ 基础层</div><div class="n-d">分析调用的数据</div></div>
+    </div>
+    <p class="small muted" style="margin-top:12px">箭头自上而下，技术层内部再分三步展开，是五层中唯一被拆成三行的层级。</p>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>逐层拆解：动作为什么这样做，产物是什么，回答什么问题</h3>
+    <div class="funnel">
+      <div class="f-row">
+        <div class="f-layer l1">① 商业层</div>
+        <div class="f-body">
+          <div><b>动作</b>　看官网介绍 + 看创始人访谈　　<b>产物</b>　面向普通用户及家庭的 AI 健康伴侣；商业模式</div>
+          <div class="f-q"><span>核心问题：</span>这是一个什么样的生意 / 机会？ · 如何收获第一批种子用户</div>
+        </div>
+      </div>
+      <div class="f-row">
+        <div class="f-layer l2">② 用户层</div>
+        <div class="f-body">
+          <div><b>动作</b>　按场景深度体验　　<b>产物</b>　用户旅程图；完整输出物及分数</div>
+          <div class="f-q"><span>核心问题：</span>用户真正完成的任务是什么？ · 它替代了以前什么工作流？</div>
+        </div>
+      </div>
+      <div class="f-row">
+        <div class="f-layer l3">③ 技术层</div>
+        <div class="f-body">
+          <div><b>动作一</b>　拆技术流程　　<b>产物</b>　技术流程图</div>
+          <div class="f-q"><span>核心问题：</span>技术结构是什么样的？workflow？Agent？ · 上下文工程在里面的作用？</div>
+          <div style="margin-top:10px"><b>动作二</b>　拆背后 Agent 组成　　<b>产物</b>　Agent 数量；Agent 角色</div>
+          <div class="f-q"><span>核心问题：</span>人类团队的分工，如何映射为 Agent？ · 哪里需要人机协作，human in the loop 如何设计</div>
+          <div style="margin-top:10px"><b>动作三</b>　拆解单个 Agent　　<b>产物</b>　输入&amp;输出；tools；任务（处理）；规则</div>
+          <div class="f-q"><span>核心问题：</span>如何在 System prompt 里划清能力边界 · 如何防止违规、IP 侵权</div>
+        </div>
+      </div>
+      <div class="f-row">
+        <div class="f-layer l4">④ 模型层</div>
+        <div class="f-body">
+          <div><b>动作</b>　分析调用的模型　　<b>产物</b>　模型列表；选择理由</div>
+          <div class="f-q"><span>核心问题：</span>在这条流程里，哪些环节必须依赖强模型，哪些只是流程设计即可？ · 如何节省成本</div>
+        </div>
+      </div>
+      <div class="f-row">
+        <div class="f-layer l5">⑤ 基础层</div>
+        <div class="f-body">
+          <div><b>动作</b>　分析调用的数据　　<b>产物</b>　数据内容；数据来源</div>
+          <div class="f-q"><span>核心问题：</span>模型和流程的优势是否会随着数据积累越用越强？</div>
+        </div>
+      </div>
+    </div>
+      </div>
+</section>
+
+<!-- ============ 二 ============ -->
+<section id="s2">
+  <div class="sec-head">
+    <div class="sec-no">二</div>
+    <div>
+      <h2>产品介绍：一个底座 + 三大模块 + 三层供给</h2>
+      <div class="desc">按三入口（阿福 / 健康 / 就医·我的）整理功能表，并区分偶发需求与持续需求</div>
+    </div>
+  </div>
+
+  <div class="callout key">
+    <b>定位一句话：</b>蚂蚁阿福是蚂蚁集团旗下把 AI 做成「健康朋友」的应用。
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>1.1 一个底座：蚂蚁医疗大模型</h3>
+    <ul class="tight">
+      <li>由蚂蚁集团<b>自研</b>，学习海量专业医疗文本语料，具备医学推理能力，可完成<b>图文、语音、视频</b>等多模态交互，在 <b>HealthBench、MedBench</b> 等评测中处于行业前列。</li>
+      <li>训练阶段联合全国 <b>200 余家三甲医院、1000 余位名医</b>共同参与，其中包含 <b>6 位院士</b>；依托浙江国家医疗人工智能基地的技术与资源支持；据公开报道，团队成员中<b>约六成具备医学背景</b>。</li>
+      <li>回答的逻辑是<b>模拟真实医生的问诊流程</b>，而不是搜索引擎式的信息拼凑；用户反馈中出现频率很高的一句话是「它说的和医生说的差不多」。</li>
+    </ul>
+    <h4>图片能力</h4>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>能力</th><th>口径</th></tr></thead>
+        <tbody>
+          <tr><td>拍皮肤</td><td>可识别约 <b>50 类</b>常见皮肤病并给出护肤建议</td></tr>
+          <tr><td>拍报告</td><td>支持拍照、上传 PDF、上传照片三种方式；覆盖 <b>99%</b> 的常见检验检查报告，解读准确率<b>超过 95%</b>；支持多份报告的对比分析</td></tr>
+          <tr><td>拍药盒</td><td>识别药盒并解读用药信息</td></tr>
+        </tbody>
+      </table>
+    </div>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>1.2 三大模块</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:110px">功能模块</th><th>主要能力</th><th style="width:250px">对用户意味着什么</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="tag g">健康问答</span></td>
+            <td>支持语音、文字、图片提问；「AI 诊室」模拟真人主动追问，甚至给出示意图辅助描述；拍皮肤、拍报告、拍药盒；「无痕拍」模式下照片全程打码</td>
+            <td>说不清楚症状也没关系，它会一句句问出来；报告、药盒看不懂，拍一下就行</td>
+          </tr>
+          <tr>
+            <td><span class="tag b">健康陪伴</span></td>
+            <td>健康小日记记录身体状况；健康小目标定制运动、饮食、生活习惯计划；健康小提醒每日督促；已接入苹果、华为、vivo、鱼跃、欧姆龙等<b>九大品牌智能设备</b>，同步运动量、心率、睡眠等数据</td>
+            <td>像私人教练一样，按你的目标定制计划并天天提醒，而不是问完就忘</td>
+          </tr>
+          <tr>
+            <td><span class="tag a">健康服务</span></td>
+            <td>连接全国 <b>5000 多家医院</b>与 <b>30 万名真人医生</b>，提供在线问诊、预约挂号、医保码支付、买药、云陪诊；支持在线调出医保码、查询医保余额、直接挂号</td>
+            <td>从「问一句」到「办成事」在同一处完成，不必在多个 App 之间来回切换</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>1.3 三层供给：从 AI 自服务到真人医生</h3>
+    <div class="flow">
+      <div class="node hl"><div class="n-t">第一层 · AI 自服务</div><div class="n-d">日常头痛脑热、报告解读、用药疑问，阿福直接回答，7×24 小时在线</div></div>
+      <div class="node"><div class="n-t">第二层 · 名医 AI 分身</div><div class="n-d">由院士、学科带头人等名医的数字分身承接专业咨询，把院士与名医的经验复制给更多人</div></div>
+      <div class="node"><div class="n-t">第三层 · 真人医生</div><div class="n-d">接入 30 万名真人医生在线问诊，并可继续完成挂号、就诊与支付</div></div>
+    </div>
+    <p class="small" style="margin-top:12px">产品还上线了「<b>医生把关</b>」功能，在行业内较早落地「AI 问答 + 医生复核」的协作模式，让 AI 的回答多一道人工防线。</p>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>三入口功能表（阿福 / 健康 / 就医·我的）</h3>
+    <p class="small muted" style="margin-bottom:10px">产品被拆成三个入口，这意味着它希望同时服务<b>偶发需求</b>与<b>持续需求</b>。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:100px">入口</th><th>功能</th><th style="width:120px">需求类型</th><th style="width:250px">判断依据</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="tag g">阿福</span></td>
+            <td>即时提问、报告解读、AI 诊室、找医生</td>
+            <td><span class="tag n">偶发</span></td>
+            <td>偶发需求指「突然看不懂一份报告」，对应即时提问与一次性解读</td>
+          </tr>
+          <tr>
+            <td><span class="tag v">健康</span></td>
+            <td>饮食、活动、设备数据与日常记录</td>
+            <td><span class="tag g">持续</span></td>
+            <td>持续需求指「长期管理本人及家人健康」，对应日常记录与设备同步</td>
+          </tr>
+          <tr>
+            <td><span class="tag b">就医／我的</span></td>
+            <td>医疗服务、订单、家庭成员与健康档案</td>
+            <td><span class="tag g">持续</span> + <span class="tag n">偶发</span></td>
+            <td>健康档案与家庭成员是长期沉淀；订单与医疗服务多为一次性办事。未对这两项分别归类，此处为按上述定义的推断</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted" style="margin-top:10px">更细的三分法：<b>健康咨询</b>（AI 诊室、报告解读、拍皮肤、打电话，侧重即时解答）、<b>就医协助</b>（就医服务、查医保，侧重实际办事）、<b>持续健康管理</b>（药管家、健康小目标，侧重持续执行）。</p>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>2、面向用户</h3>
+    <p>主打人群是<b>下沉市场居民、老年人和慢病患者</b>。</p>
+    <p>注册用户里 <b>55%</b> 来自三线及以下城市，老年用户占 <b>25% 到接近三分之一</b>，春节新增用户里 <b>52%</b> 来自三线及以下。面向老年用户，产品提供<b>长辈模式</b>：大字界面、全语音交互、一键电话问询，并已支持粤语、闽南话等十余种方言。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:170px">人群</th><th style="width:210px">他们的问题</th><th>阿福给什么</th></tr></thead>
+        <tbody>
+          <tr><td>刚体检完的人</td><td>指标看不懂</td><td>拍照解读，约 10 秒出结论</td></tr>
+          <tr><td>想减重、睡不好的人</td><td>知道该动，坚持不下来</td><td>五大场景、AI 减重教练、体脂秤</td></tr>
+          <tr><td>慢病患者</td><td>指标要长期记</td><td>健康档案、随访提醒</td></tr>
+          <tr><td>老人</td><td>看不清、不会打字</td><td>长辈模式、电话咨询、方言识别</td></tr>
+          <tr><td>不在父母身边的子女</td><td>问不出父母的真实情况</td><td>亲情档案、异常提醒、替父母问</td></tr>
+          <tr><td>要就医的人</td><td>挂号、陪诊、报销麻烦</td><td>30 万医生、挂号、医保码</td></tr>
+          <tr><td>医生</td><td>随访和查文献耗时</td><td>医生版工作站，6000 万篇文献</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn" style="margin-bottom:0"><b>「几类人不适用」：</b>急症直接去急诊；要确诊和开处方，AI 只能给到建议，<b>处方必须由执业医师签发</b>；没有记录习惯的人拿不到长期管理的价值。</div>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>3、应用场景</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:180px">场景</th><th>产品在做什么</th></tr></thead>
+        <tbody>
+          <tr><td>日常健康管理</td><td>设备数据变成健康评分与提醒</td></tr>
+          <tr><td>体检报告解读</td><td>拍照或上传，给复查建议</td></tr>
+          <tr><td>家庭代管</td><td>子女建档案、替父母问</td></tr>
+          <tr><td>慢病随访</td><td>长期记录加主动提醒</td></tr>
+          <tr><td>减重与行为改变</td><td>目标管理加教练</td></tr>
+          <tr><td>就医履约</td><td>问诊转人工、挂号、医保商保结算</td></tr>
+          <tr><td>医生与线下</td><td>医生版工作站、超市健康专区</td></tr>
+        </tbody>
+      </table>
+    </div>
+      </div>
+</section>
+
+<!-- ============ 三 ============ -->
+<section id="s3">
+  <div class="sec-head">
+    <div class="sec-no">三</div>
+    <div>
+      <h2>效果体验：用一个连续场景测试能力</h2>
+      <div class="desc">测试场景：看不懂体检报告，接下来怎么办？任务链：报告解读 → 必要追问 → 就医服务 → 健康档案</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>测试场景与任务链</h3>
+    <p>本次选择「<b>报告解读 ＋ 多轮咨询 ＋ 就医服务</b>」作为贯穿场景，理由是它能同时覆盖「报告解读」「AI 诊室」「健康档案」「科室推荐」「找医生」等入口，适合观察阿福能否把一次提问推进为完整任务。</p>
+    <div class="flow">
+      <div class="node hl"><div class="n-t">报告解读</div><div class="n-d">上传模拟 PDF，先看报告原文写了什么</div></div>
+      <div class="node"><div class="n-t">必要追问</div><div class="n-d">不退出对话继续提问，核对风险与信息缺口</div></div>
+      <div class="node"><div class="n-t">就医服务</div><div class="n-d">科室推荐 / 找医生，从解释走向行动</div></div>
+      <div class="node"><div class="n-t">健康档案</div><div class="n-d">选择就诊人、保存并回看材料</div></div>
+    </div>
+    <div class="grid2" style="margin-top:14px">
+      <div class="callout info" style="margin:0">
+        <b>起点：</b>报告写有「肺结节」，用户看不懂影像描述，也不知道应不应该复查、去哪个科室。
+      </div>
+      <div class="callout info" style="margin:0">
+        <b>目标：</b>看懂报告原文，明确还缺少哪些判断信息，找到合理的下一步服务。
+      </div>
+    </div>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>五个连续场景</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:150px">场景</th><th style="width:290px">动作与对话</th><th>测试点</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>场景一</b><br><span class="tag n">疑问 · 报告刚到手</span><br><span class="small muted">晚上，用户在家收到母亲发来的体检报告，看到「右肺上叶小结节」几个字，放大图片反复看，却不知道「5 mm」意味着什么。</span></td>
+            <td><b>动作：</b>打开阿福 App，从首页点击「报告解读」，上传准备好的模拟 PDF。<br><b>对话：</b>「我看不懂这份报告。先告诉我报告具体写了什么，哪些是需要关注的信息。请不要补充报告里没有的内容。」</td>
+            <td>它能否读准部位、项目、大小和报告结论？是否把原文和自己的解释区分开？</td>
+          </tr>
+          <tr>
+            <td><b>场景二</b><br><span class="tag n">焦虑 · 追问风险</span><br><span class="small muted">读完解释，用户仍然停留在「结节」两个字上，想知道是不是应该立刻带母亲去医院。</span></td>
+            <td><b>动作：</b>不退出当前对话，直接继续提问。<br><b>对话：</b>「看到'结节'我有点害怕。仅凭这份报告，你能确定什么？还有哪些信息不足，不能直接下结论？」</td>
+            <td>它会不会把报告解读说成确定诊断？是否能清楚告诉用户下一步需要核对哪些信息？</td>
+          </tr>
+          <tr>
+            <td><b>场景三</b><br><span class="tag n">转折 · 这不是我的报告</span><br><span class="small muted">用户发现自己从头到尾都说「我」，但这份报告其实属于母亲。若系统把信息记到本人名下，后续建议就可能混乱。</span></td>
+            <td><b>动作：</b>主动纠正报告归属。<br><b>对话：</b>「我刚才漏说了，这是我 62 岁妈妈的报告，不是我的。请按她的情况重新整理刚才的结论，并告诉我你还缺少什么信息。」</td>
+            <td>阿福能否及时纠正上下文？后续会不会继续把母亲的报告说成本人的报告？</td>
+          </tr>
+          <tr>
+            <td><b>场景四</b><br><span class="tag n">行动 · 从解释走向就医</span><br><span class="small muted">用户不再只想知道术语含义，而是想帮母亲找一位合适的医生。</span></td>
+            <td><b>动作：</b>在当前对话提问，然后尝试进入「科室推荐」或「找医生」。<br><b>对话：</b>「我想带妈妈找医生进一步咨询。从哪个科室入口开始比较合适？阿福里能帮我完成哪些步骤？」</td>
+            <td>健康咨询与就医服务之间有没有断点？阿福是否解释推荐理由，并让用户自己确认选择？</td>
+          </tr>
+          <tr>
+            <td><b>场景五</b><br><span class="tag n">收尾 · 保存后再反问</span><br><span class="small muted">希望下次陪母亲就医时还能找到原报告和这次咨询记录。</span></td>
+            <td><b>动作：</b>打开「健康」或「我的」中的「健康档案」，查看能否选择母亲作为就诊人并保存、回看材料，随后返回阿福对话。<br><b>对话：</b>故意问：「请总结一下我本人这次胸部 CT 的结果。」</td>
+            <td>它能否指出「刚才上传的是你母亲的报告」？是否避免将母亲的健康信息写进本人档案？</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>2、测试维度（四条）</h3>
+    <div class="grid2">
+      <div class="callout info" style="margin:0"><b>端到端效果</b><br>从上传报告，到理解结果，再到找到下一步服务，任务能否走通。</div>
+      <div class="callout info" style="margin:0"><b>交互共创</b><br>阿福是否会追问、解释和接受纠正，而不要求用户一次说清所有信息。</div>
+      <div class="callout info" style="margin:0"><b>Agent 协作表现</b><br>报告解读、健康咨询、档案和就医服务之间的信息能否正确传递。</div>
+      <div class="callout info" style="margin:0"><b>基础能力</b><br>图片识别、医学信息依据、个人数据使用与风险提示是否可靠。</div>
+    </div>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>3、评估权重：四个评分维度</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:150px">评估维度</th><th style="width:90px">权重</th><th>核心考察点</th></tr></thead>
+        <tbody>
+          <tr><td>端到端效果</td><td class="num"><b>40%</b></td><td>报告内容提取是否准确；解释是否有用；能否完成下一步任务</td></tr>
+          <tr><td>交互共创层</td><td class="num"><b>20%</b></td><td>追问是否必要且自然；用户纠正信息后能否及时调整</td></tr>
+          <tr><td>Agent 协作层</td><td class="num"><b>25%</b></td><td>不同功能间能否传递正确的信息；人物、报告和问题是否保持一致</td></tr>
+          <tr><td>基础能力层</td><td class="num"><b>15%</b></td><td>信息依据、隐私授权、风险提示及多模态处理表现</td></tr>
+        </tbody>
+      </table>
+    </div>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>4、能力维度评测表与得分</h3>
+    <div class="score-hero">
+      <div>
+        <div class="big">81<small> / 100</small></div>
+        <div class="small" style="opacity:.85;margin-top:6px">能力维度评测表「最终得分」合计</div>
+      </div>
+      <div class="txt">
+        <b>对应分数评级：70–89 分</b><br>
+        「主流程可用，个别解释或跳转需要用户补充、核对。」
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:100px">能力层级</th><th style="width:160px">评测维度</th><th>具体打分逻辑</th><th style="width:60px">满分</th><th style="width:74px">最终得分</th></tr></thead>
+        <tbody>
+          <tr><td>端到端</td><td>报告信息准确性</td><td>扫查报告中的项目、数值、单位、参考范围；是否漏项、歪解或编造</td><td class="num">15</td><td class="num"><b>13</b></td></tr>
+          <tr><td>端到端</td><td>解释质量与风险边界</td><td>是否讲清「报告写了什么、可能意味着什么、还不能确定什么」；是否避免确定性诊断</td><td class="num">15</td><td class="num"><b>13</b></td></tr>
+          <tr><td>端到端</td><td>任务完成度</td><td>能否从解读顺利进入进一步咨询、找科室或找医生</td><td class="num">10</td><td class="num"><b>8</b></td></tr>
+          <tr><td>交互共创</td><td>意图理解与主动追问</td><td>能否理解口语化问题；信息不足时是否问真正影响回答的背景</td><td class="num">10</td><td class="num"><b>8</b></td></tr>
+          <tr><td>交互共创</td><td>纠错与灵活性</td><td>用户更正「报告属于家人」后，后续回答和档案对象是否同步改变</td><td class="num">10</td><td class="num"><b>8</b></td></tr>
+          <tr><td>Agent 协作</td><td>跨功能衔接</td><td>从报告解读进入 AI 诊室、找医生等功能时，是否需要重复输入已有信息</td><td class="num">15</td><td class="num"><b>12</b></td></tr>
+          <tr><td>Agent 协作</td><td>上下文一致性</td><td>是否始终区分本人和家人、原报告数据和用户补充信息</td><td class="num">10</td><td class="num"><b>8</b></td></tr>
+          <tr><td>基础能力</td><td>信息依据与多模态处理</td><td>能否准确读取上传材料；回答是否能对应到报告内容或出处依据</td><td class="num">8</td><td class="num"><b>6</b></td></tr>
+          <tr><td>基础能力</td><td>隐私与安全</td><td>保存档案前是否明确对象和授权；出现风险时是否提示人工医疗服务</td><td class="num">7</td><td class="num"><b>5</b></td></tr>
+          <tr style="background:#f7fafb"><td colspan="3"><b>合计</b></td><td class="num"><b>100</b></td><td class="num"><b>81</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+          </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>5、分数评级与四维对照</h3>
+    <h4>分数评级</h4>
+    <ul class="tight">
+      <li><b>90–100 分：</b>报告读取准确，追问有效，跨功能信息一致，用户能清楚完成下一步。</li>
+      <li><b>70–89 分：</b>主流程可用，个别解释或跳转需要用户补充、核对。</li>
+      <li><b>60–69 分：</b>部分功能有价值，但报告信息、上下文或功能衔接存在明显断点。</li>
+      <li><b>60 分以下：</b>关键内容频繁出错，难以可靠完成这项任务。</li>
+    </ul>
+    <div class="callout key" style="margin-bottom:0"><b>本次合计 81 分，落在 70–89 档</b>，即「主流程可用，个别解释或跳转需要用户补充、核对」。</div>
+
+    <h4 style="margin-top:20px">与提问口径「准确 / 连续 / 行动 / 安全」四维的对照</h4>
+        <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:90px">提问口径</th><th>归入的评测维度</th><th style="width:130px">满分类合计</th><th style="width:130px">得分类合计</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag g">准确</span></td><td>报告信息准确性（15）· 解释质量与风险边界（15）· 信息依据与多模态处理（8）</td><td class="num">38</td><td class="num"><b>32</b></td></tr>
+          <tr><td><span class="tag b">连续</span></td><td>跨功能衔接（15）· 上下文一致性（10）· 纠错与灵活性（10）</td><td class="num">35</td><td class="num"><b>28</b></td></tr>
+          <tr><td><span class="tag a">行动</span></td><td>任务完成度（10）· 意图理解与主动追问（10）</td><td class="num">20</td><td class="num"><b>16</b></td></tr>
+          <tr><td><span class="tag r">安全</span></td><td>隐私与安全（7）</td><td class="num">7</td><td class="num"><b>5</b></td></tr>
+          <tr style="background:#f7fafb"><td><b>合计</b></td><td>九个评测维度</td><td class="num"><b>100</b></td><td class="num"><b>81</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn" style="margin-bottom:0">
+      <b>读表提示：</b>「安全」一项在评测表中只有 7 分权重，占比最低，但安全体系在技术层与基础层被写得很重（高危旁路、强制引用、数据最小化、上线门禁）。这说明评测表<b>不是</b>按工程投入分配的，而是按本次单一场景的可观察表现分配的。
+    </div>
+      </div>
+</section>
+
+<!-- ============ 四 ============ -->
+<section id="s4">
+  <div class="sec-head">
+    <div class="sec-no">四</div>
+    <div>
+      <h2>产品定位：它和其他医疗产品有什么差异点</h2>
+      <div class="desc">一句话定位、与同类产品的差异点，以及用完整任务链检验竞争力</div>
+    </div>
+  </div>
+
+  <div class="callout key">
+    <b>一句话定位：</b>蚂蚁阿福是面向普通用户和家庭的 AI 健康助手，试图把「有健康疑问」连接到「看懂信息、管理健康、找到医疗服务」。
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>与同类产品的差异点：公开方向对比</h3>
+    <p class="small muted">它的差异需要从用户使用场景和服务组织方式来理解。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:120px">产品</th><th>公开介绍强调的方向</th><th style="width:300px">对阿福分析的启示</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="tag g">蚂蚁阿福</span></td>
+            <td>AI 健康朋友；健康咨询、个人及家庭档案、医疗服务连接。</td>
+            <td>可以围绕日常陪伴和家庭健康需求分析</td>
+          </tr>
+          <tr>
+            <td><span class="tag v">讯飞晓医</span></td>
+            <td>医疗专业能力、个人数字健康空间，以及症状、用药、报告和慢病管理。</td>
+            <td><b>是最直接的竞品；档案、报告解读、健康管理都不能算阿福独有</b></td>
+          </tr>
+          <tr>
+            <td><span class="tag a">京东健康</span></td>
+            <td>AI 健康咨询与互联网医院真人问诊入口相连接。</td>
+            <td>可以比较咨询之后怎样进入真实医疗服务</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn">它们的功能重叠很多。现在更有依据的是分析定位与体验侧重，<b>效果上的优势还需要同场景对照</b>。</div>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>三条差异点</h3>
+    <div class="grid3">
+      <div class="callout info" style="margin:0">
+        <b>1. 将使用场景延伸到日常健康陪伴</b><br>
+        <span class="small">通过健康小日记、小目标、小提醒等功能，把场景延伸到日常记录和习惯养成，同时支持管理自己及家人的健康信息。体现它希望建立<b>持续使用关系</b>。<br><br>
+        讯飞晓医同样提供健康档案和健康管理，因此这里的差异应表述为阿福对「健康朋友」和日常陪伴的<b>强调</b>，<b>不能认定为独有功能</b>。</span>
+      </div>
+      <div class="callout info" style="margin:0">
+        <b>2. 用对话帮助用户整理尚未表达清楚的问题</b><br>
+        <span class="small">面对「我很难受」这样模糊的描述，阿福先提示安全事项，再列出需要补充的关键信息、需要警惕的信号和后续可继续讨论的方向，整个过程在聊天页面内完成。在明确要求一次只问一个问题后，它能够调整追问节奏。<br><br>
+        由于尚未与竞品进行同场景比较，<b>不能据此认定其追问能力更强或医学判断更准确</b>。</span>
+      </div>
+      <div class="callout info" style="margin:0">
+        <b>3. 将咨询、健康信息管理与医疗服务连接组合起来</b><br>
+        <span class="small">应用说明列出了图片解读、个人及家庭健康档案管理，以及预约挂号、云陪诊等服务，尝试覆盖从理解健康问题、整理资料到寻找医疗服务的连续需求。<br><br>
+        京东健康也提供 AI 咨询与真人问诊入口，因此值得比较的是<b>服务如何衔接</b>：是否需要重复描述问题、资料能否带入下一步、需要几次操作才能找到合适的服务。</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>用完整任务链检验竞争力</h3>
+    <p>它的竞争力要通过一条完整任务链来检验 —— <b>报告解读 → 必要追问 → 就医服务 → 健康档案</b>。</p>
+    <div class="flow">
+      <div class="node hl"><div class="n-t">报告解读</div><div class="n-d">能否读准原文并分离「原文」与「解读」</div></div>
+      <div class="node"><div class="n-t">必要追问</div><div class="n-d">追问是否必要且自然，能否接受纠正</div></div>
+      <div class="node"><div class="n-t">就医服务</div><div class="n-d">能否从解释无断点走向科室推荐与找医生</div></div>
+      <div class="node"><div class="n-t">健康档案</div><div class="n-d">能否区分本人与家人并正确落档</div></div>
+    </div>
+    <div class="callout warn" style="margin-top:14px">
+      <b>检验结论：</b>本次网页体验确认了健康问答和医学资料检索能力，但<b>没有完成指定医院官网挂号入口的查找</b>。因此，目前可以写『产品提供医疗服务连接』，<b>尚不能写『已验证完整就医闭环』</b>。
+    </div>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>定位小结</h3>
+    <p>阿福的差异不在单一功能，而在<b>把三类能力组织成一条用户路径</b>：即时问答解决「这一刻看不懂」，日常陪伴与档案解决「长期记不住」，医疗服务连接解决「知道了下一步去哪儿」。功能与竞品高度重叠，差异目前只能落在<b>定位与体验侧重</b>，效果优势仍需同场景对照。</p>
+  </div>
+</section>
+
+<!-- ============ 五 ============ -->
+<section id="s5">
+  <div class="sec-head">
+    <div class="sec-no">五</div>
+    <div>
+      <h2>产品拆解</h2>
+      <div class="desc">市场层 → 场景/用户层 → 商业层 → 技术层（Agent 构成为本节重点）→ 模型层 → 基础层</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>1、市场层拆解</h3>
+    <h4>1.1 市场情况：从「回答一个问题」走向「一条连续流程」</h4>
+    <p>AI 医疗健康正在从「回答一个健康问题」，走向<b>咨询、报告解读、就医服务、长期健康管理</b>的连续流程。</p>
+    <div class="flow">
+      <div class="node hl"><div class="n-t">咨询</div><div class="n-d">回答健康问题</div></div>
+      <div class="node"><div class="n-t">报告解读</div><div class="n-d">把材料变成可理解的信息</div></div>
+      <div class="node"><div class="n-t">就医服务</div><div class="n-d">把判断落到具体服务</div></div>
+      <div class="node"><div class="n-t">长期健康管理</div><div class="n-d">把一次行为变成持续关系</div></div>
+    </div>
+    <p style="margin-top:14px"><b>政策口径：</b>国家卫健委 2025 年的实施意见将<b>智能预问诊、云陪诊、慢病管理和个人健康画像</b>等列为重点应用场景，说明这一市场的竞争对象已不只是聊天机器人，还包括<b>完整的患者服务流程</b>。</p>
+    <h4>规模与人群口径</h4>
+    <div class="kpis" style="margin-bottom:6px">
+      <div class="kpi"><div class="k-label">累计服务用户</div><div class="k-val">&gt;1<small>亿</small></div><div class="k-note">这里的「累计服务用户」<b>不能写成月活用户</b></div></div>
+      <div class="kpi a"><div class="k-label">三线及以下城市占比</div><div class="k-val">&gt;55<small>%</small></div><div class="k-note">同一披露口径</div></div>
+      <div class="kpi a"><div class="k-label">老年用户占比</div><div class="k-val">&gt;25<small>%</small></div><div class="k-note">同一披露口径</div></div>
+    </div>
+    <p class="small muted">蚂蚁阿福已跨过早期产品验证阶段。蚂蚁集团在 2026 年 3 月披露上述数据。</p>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>1.2 竞争格局：三层结构</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:190px">层次</th><th style="width:280px">代表玩家</th><th>主要竞争点</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>第一层</b><br><span class="small muted">面向用户的 AI 健康入口</span></td>
+            <td>蚂蚁阿福、京东健康 AI 京医、平安健康 AI 医生等</td>
+            <td>谁更容易被用户使用，谁能把健康咨询推进到下一步行动</td>
+          </tr>
+          <tr>
+            <td><b>第二层</b><br><span class="small muted">医疗服务平台</span></td>
+            <td>互联网医院、医生问诊平台、医院自有服务入口</td>
+            <td>医生和医院供给、挂号问诊、诊后服务等实际履约能力</td>
+          </tr>
+          <tr>
+            <td><b>第三层</b><br><span class="small muted">模型与行业基础设施</span></td>
+            <td>医疗大模型厂商、医院智能体平台、健康数据及设备服务商</td>
+            <td>医学能力、数据质量、安全控制及接入成本</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>1.3 产品定位：为什么用户会打开阿福？</h3>
+    <div class="callout key" style="margin-top:0">
+      <b>一句话定位：</b>蚂蚁阿福是面向普通用户和家庭的 AI 健康助手，试图把「有健康疑问」连接到「看懂信息、管理健康、找到医疗服务」。
+    </div>
+    <p>被拆成三个入口：</p>
+    <ul class="tight">
+      <li><b>阿福：</b>即时提问、报告解读、AI 诊室、找医生；</li>
+      <li><b>健康：</b>饮食、活动、设备数据与日常记录；</li>
+      <li><b>就医／我的：</b>医疗服务、订单、家庭成员与健康档案。</li>
+    </ul>
+    <p>这意味着产品希望同时服务<b>偶发需求</b>（突然看不懂一份报告）和<b>持续需求</b>（长期管理本人及家人健康）。它的竞争力要通过一条完整任务链来检验：<b>报告解读 → 必要追问 → 就医服务 → 健康档案</b>。</p>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>1.4 变现方式：免费咨询怎样形成商业价值？</h3>
+    <div class="flow">
+      <div class="node hl"><div class="n-t">免费 AI 咨询 / 报告解读</div><div class="n-d">降低用户首次使用门槛</div></div>
+      <div class="node"><div class="n-t">报告 · 档案 · 日常管理</div><div class="n-d">提高再次使用的可能</div></div>
+      <div class="node"><div class="n-t">连接医疗与健康服务</div><div class="n-d">当用户确有需要时，导向医生推荐、预约挂号、线上问诊</div></div>
+    </div>
+    <p style="margin-top:14px">阿福提供免费的健康咨询及报告解读，并连接医生推荐、预约挂号和线上问诊等服务。蚂蚁集团还在与健康管理企业合作，扩展<b>体重管理</b>等场景。目前也有<b>药品等商品售卖</b>。</p>
+          </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>1.5 护城河：阿福真正要积累什么（四条）</h3>
+    <div class="grid2">
+      <div class="six" style="grid-template-columns:1fr;gap:11px">
+        <div class="p"><div class="pt"><span class="pi">1</span>可信的任务流程</div><div class="pd">把提问、报告、追问、风险提示和就医服务接成一条<b>不串人</b>的流程。</div></div>
+        <div class="p"><div class="pt"><span class="pi">2</span>医疗服务网络</div><div class="pd">AI 提出下一步后，用户能否<b>真正找到</b>合适的医生与服务。蚂蚁集团此前披露，AQ 已连接大量医院、医生及专科医生智能体。</div></div>
+      </div>
+      <div class="six" style="grid-template-columns:1fr;gap:11px">
+        <div class="p"><div class="pt"><span class="pi">3</span>经授权的长期健康信息</div><div class="pd">让单次报告和日常记录能够用于后续服务，同时确保<b>本人、家人信息不混用</b>。</div></div>
+        <div class="p"><div class="pt"><span class="pi">4</span>安全与信任</div><div class="pd">医疗健康场景对事实错误、隐私和不恰当建议的容忍度很低。<b>安全边界本身是产品体验的一部分。</b></div></div>
+      </div>
+    </div>
+      </div>
+</section>
+
+<section id="s5-biz">
+  <div class="sec-head">
+    <div class="sec-no">五·3</div>
+    <div>
+      <h2>商业层拆解</h2>
+      <div class="desc">变现方式 · 护城河 · 产业视角 · 四层壁垒</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>商业层的四条主张</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:120px">维度</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td><span class="tag g">产品定位</span></td><td>以交付健康管理结果为出发点的端到端工作流：健康问答只是入口，真正的交付物是「问诊 - 购药 - 支付 - 随访 - 保障」的完整服务闭环。</td></tr>
+          <tr><td><span class="tag b">专业化 AI</span></td><td>医疗大模型由三甲医院、名医与院士参与训练，聚合 <b>6000 万篇医学文献</b>循证；名医 AI 分身让顶尖医生经验可规模化服务（单名医分身年服务超 <b>368 万</b>用户）。</td></tr>
+          <tr><td><span class="tag v">交互机制</span></td><td><b>规矩面：</b>循证引用、危急症状转诊、医生复核（国内首个「AI 问答 + 医生复核」协作模式）；<br><b>跳出面：</b>主动追问式问诊、主动建档、长辈模式可打电话、十几种方言语音。</td></tr>
+          <tr><td><span class="tag a">产品气质</span></td><td>「健康是福」的普惠可信：主打下沉市场与中老年人群，无广告承诺，获 AI 产品个人信息保护「卓越型」认证。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h4>变现逻辑五句话</h4>
+    <ul class="tight">
+      <li><b>免费换入口——</b>阿福 AI 咨询全免费（看病花钱是医疗费，不是它收费），以免费换取 AI 健康入口的规模。</li>
+      <li><b>不靠用户赚钱——</b>它靠三块拼图：医生（好大夫 30 万真人）、数据（医疗大模型）、支付（支付宝医保 / 商保直付）。</li>
+      <li><b>未来赚谁的钱——</b>B 端：保险佣金、药企返点、医院导流、商保直付抽佣。</li>
+      <li><b>商业闭环——</b>咨询 → 问诊 → 买药 → 支付，全在支付宝生态内完成，数据回流养模型。</li>
+      <li><b>一句话本质——</b>现在烧钱换入口，未来做「健康领域的支付宝」：靠入口、生态、数据赚钱，不靠卖服务赚钱。</li>
+    </ul>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>3.1 变现方式 / 3.2 护城河 / 3.3 产业视角 / 3.4 四层壁垒</h3>
+    <h4>3.1 变现方式</h4>
+    <p>目前 <b>C 端纯免费、零直接收入</b>，靠蚂蚁战略输血，官方口径<b>暂不考虑商业化</b>；未来走「<b>订阅 + 按次 + 打包 + B 端</b>」四轨。定价建议：AI 回答永远免费，只为<b>确定性交付</b>付费（订阅 19.9 元 / 月或 199 元 / 年、真人问诊 29–99 元 / 次、保险 / 药企 / 机构 B 端做利润主体）。</p>
+    
+    <h4>3.2 护城河</h4>
+    <p>不是医疗大模型本身，而是：<b>医疗工艺流程的 Agent 化表达</b>（预问诊 → 分诊 → 回答 → 建档 → 转介 → 随访的自动化管线）+ <b>30 万医生供给网络</b> + <b>医保 / 商保支付通道</b> + <b>个人健康数据沉淀</b>。</p>
+
+    <h4>3.3 产业视角</h4>
+    <div class="flow">
+      <div class="node hl"><div class="n-t">全科管家</div><div class="n-d">理解 / 澄清 / 拆解 / 路由</div></div>
+      <div class="node"><div class="n-t">专科 Agent / 医生 AI 分身</div><div class="n-d">专业答复</div></div>
+      <div class="node"><div class="n-t">报告解读</div><div class="n-d">把材料结构化</div></div>
+      <div class="node"><div class="n-t">健康档案</div><div class="n-d">沉淀为可复用数据</div></div>
+      <div class="node"><div class="n-t">健康管理方案</div><div class="n-d">落到日常执行</div></div>
+      <div class="node"><div class="n-t">医生把关质检</div><div class="n-d">人工复核</div></div>
+      <div class="node"><div class="n-t">服务调度交付</div><div class="n-d">挂号 / 问诊 / 购药 / 支付</div></div>
+    </div>
+    <p class="small muted" style="margin-top:12px">表层一句健康疑问，底层是模拟医疗团队分工的多智能体系统。</p>
+
+    <h4>3.4 四层壁垒</h4>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:150px">层级</th><th>决定什么</th><th style="width:300px">依据</th></tr></thead>
+        <tbody>
+          <tr><td><b>体验</b></td><td>决定激活</td><td>用户规模与活跃</td></tr>
+          <tr><td><b>流程</b></td><td>决定产能</td><td>日处理近 2000 万咨询</td></tr>
+          <tr><td><b>模型</b></td><td>决定基础质量</td><td>专业循证</td></tr>
+          <tr><td><b>数据</b></td><td>决定壁垒</td><td>健康档案 + 设备数据 + 家庭关系，<b>隐私最重、迁移成本最高</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+      </div>
+</section>
+
+<section id="s5-scene">
+  <div class="sec-head">
+    <div class="sec-no">五·2</div>
+    <div>
+      <h2>场景 / 用户层拆解</h2>
+      <div class="desc">三模块功能划分 · APP 与 Web 的异同 · 使用路径</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>功能模块：三个模块，三种节奏</h3>
+    <div class="grid3">
+      <div class="callout info" style="margin:0">
+        <b>健康咨询</b> <span class="tag n">即时解答</span><br>
+        <span class="small">包括 AI 诊室、报告解读、拍皮肤、打电话。侧重即时解答，帮助用户理解当下的健康问题。</span>
+      </div>
+      <div class="callout info" style="margin:0">
+        <b>就医协助</b> <span class="tag n">实际办事</span><br>
+        <span class="small">包括就医服务、查医保。侧重实际办事，帮助用户处理看病过程中的服务需求。</span>
+      </div>
+      <div class="callout info" style="margin:0">
+        <b>持续健康管理</b> <span class="tag n">持续执行</span><br>
+        <span class="small">包括药管家、健康小目标。侧重持续执行，帮助用户把健康安排落实到日常生活。</span>
+      </div>
+    </div>
+          </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>APP 和 Web 的相同与不同</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:96px">维度</th><th>App 端</th><th>Web 端</th></tr></thead>
+        <tbody>
+          <tr><td><b>定位</b></td><td>健康管理主阵地（重形态）</td><td>咨询型轻入口（轻形态）</td></tr>
+          <tr><td><b>入口</b></td><td>对话框 + 健康 + 就医 三大板块</td><td>单一对话框（chat.antafu.com）</td></tr>
+          <tr><td><b>交互范式</b></td><td>对话即入口；主动追问式问诊；拍照渐进式诊断</td><td>对话直达，即开即用</td></tr>
+          <tr><td><b>输入</b></td><td>文字 / 语音 / 方言 / 拍照 / 设备数据</td><td>文字 / 图片（报告）</td></tr>
+          <tr><td><b>适老设计</b></td><td>长辈模式（大字 / 语音 / 打电话）、数字人形象</td><td>无</td></tr>
+          <tr><td><b>核心功能</b></td><td>健康档案、家庭档案、就医购药支付闭环</td><td>健康问答、报告解读、循证医学、论文写作支持</td></tr>
+          <tr><td><b>上手难度</b></td><td>板块多、路径长</td><td>免下载、零学习成本</td></tr>
+          <tr><td><b>亮点</b></td><td>单一人格封装多 Agent；长辈模式差异化杀手锏；多模态输入统一入口</td><td>轻量便捷、打开即问、零门槛</td></tr>
+          <tr><td><b>不足</b></td><td>功能重、路径长，轻咨询用户易迷失；对话交互缺可视化画布承载复杂报告</td><td>功能浅、仅查询定位；两端体验割裂，未形成协同</td></tr>
+          <tr><td><b>共性</b></td><td>同一「阿福」人格，封装同一套多 Agent 系统</td><td>同左</td></tr>
+        </tbody>
+      </table>
+    </div>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>使用路径：正向流程与逆向流程</h3>
+    <p>「使用路径」下有两张流程图：</p>
+    <ul class="tight">
+      <li><b>梳理正向流程：</b>任务协调 → 报告解读 → 健康咨询 → 就医服务，串成一条由提问到服务的单向前进路径。</li>
+      <li><b>加入逆向流程：</b>在同一骨架上的各个环节之间加入回流与回退，用于表达用户纠正、信息不足、需要重新确认时的返回路径。</li>
+    </ul>
+          </div>
+</section>
+
+<section id="s5-agent">
+  <div class="sec-head">
+    <div class="sec-no">五·4</div>
+    <div>
+      <h2>Agent 构成：1 个总控 + 多个专科子 Agent 如何编排</h2>
+      <div class="desc">九类 Agent 的全景与逐个拆解，按「感知 / 记忆 / 规划 / 工具 / 行动评估 / 安全护栏」六部分组织</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>4.1 Agent 构成全景</h3>
+    <p>Agent 层是「一条共享上下文 + 九类 Agent 并列」的结构。所有 Agent 共同挂在一份<b>全局共享上下文</b>下，由<b>主控 Agent</b> 负责识别、拆解、编排与汇总。</p>
+
+    <div class="orch">
+      <div class="band"><div class="bt">用户输入</div><div class="bd">文字 · 语音 · 图片 · PDF 报告 · 设备数据</div></div>
+      <div class="arrow">▼</div>
+
+      <div class="band ctrl">
+        <div class="bt">主控 Agent（总控）</div>
+        <div class="bd">识别意图，判断交给哪个业务 Agent ｜ 拆解多任务，编排调用顺序 ｜ 长文档或独立子任务派给子 Agent ｜ 汇总结果，控制轮次与成本</div>
+      </div>
+      <div class="arrow">▼</div>
+
+      <div class="band context">
+        <div class="bt">全局共享上下文</div>
+        <div class="bd">模型池 · 知识库 · 病例级记忆 · 工具与接口　<b>对所有 Agent 生效</b></div>
+      </div>
+      <div class="arrow">▼</div>
+
+      <div class="lane-label">用户侧专科 / 角色 Agent（6 类）</div>
+      <div class="grid">
+        <div class="ag"><div class="at">问诊与分诊 Agent</div><ul><li>多轮追问症状、病程与既往史</li><li>给健康科普并说明不确定性</li><li>建议看哪个科、去哪一级医院</li><li>引导进入挂号与问诊流程</li></ul></div>
+        <div class="ag"><div class="at">多模态解读 Agent</div><ul><li>拍皮肤识别常见皮肤问题</li><li>读检验报告，覆盖 99% 常见报告</li><li>识别药盒并解读用药信息</li><li>拍饮食估算热量与营养结构</li></ul></div>
+        <div class="ag"><div class="at">循证检索 Agent</div><ul><li>判读查指南、文献、说明书还是医保</li><li>把多篇问题拆成子问题并多轮检索</li><li>给每条结论标注出处与权威分级</li><li>冲突信息按规则排序，兜底交专家</li></ul></div>
+        <div class="ag"><div class="at">个性化与记忆 Agent</div><ul><li>维护病例级长期记忆，按病程推进</li><li>合并设备数据与授权导入的就诊数据</li><li>识别本人提问还是替家人提问</li><li>冲突数据须用户确认，过期信息遗忘</li></ul></div>
+        <div class="ag"><div class="at">健康管理与陪伴 Agent</div><ul><li>设定健康目标并生成执行计划</li><li>每日提醒并跟踪完成情况</li><li>接入饮食运动睡眠，体重、血压、血糖</li><li>管理减重计划与家人档案</li></ul></div>
+        <div class="ag"><div class="at">名医 AI 分身 Agent</div><ul><li>在医生授权范围内做预问诊</li><li>7×24 回答该医生的常见病患咨询</li><li>诊后随访并生成随访小结</li><li>需要医生判断的问题交回本人</li></ul></div>
+      </div>
+
+      <div class="lane-label">医生侧 Agent（2 类）</div>
+      <div class="grid">
+        <div class="ag doc"><div class="at">AI 医学助手（医生侧）</div><ul><li>检索医学文献、指南与药品资料</li><li>整理病历要点与诊前信息</li><li>汇总可核查的证据供医生判断</li><li>辅助科研选题与文献阅读</li></ul></div>
+        <div class="ag doc"><div class="at">AI 分身助手（医生侧）</div><ul><li>按医生设定的语术做预问诊</li><li>代回答患者常见咨询</li><li>跟踪随访流程并同步患者档案</li><li>只在医生划定的范围内应答</li></ul></div>
+      </div>
+
+      <div class="lane-label">与 Agent 并列的支撑层</div>
+      <div class="grid">
+        <div class="ag guard"><div class="at">医生把关</div><ul><li>人工复核环节，串联在各 Agent 的输出之后</li></ul></div>
+        <div class="ag guard"><div class="at">工具集</div><ul><li>另有 4.3 Tool 一节单独描述</li></ul></div>
+        <div class="ag guard"><div class="at">安全护栏</div><ul><li>在主控工作规则、各 Agent 硬约束、基础层安全体系中分别表达</li></ul></div>
+      </div>
+
+      <div class="arrow" style="margin-top:14px">▼</div>
+      <div class="band"><div class="bt">服务交付</div><div class="bd">挂号 · 在线问诊 · 医保码 · 买药 · 云陪诊</div></div>
+    </div>
+
+              </div>
+</section>
+
+<section id="s5-agent2">
+  <div class="card">
+    <h3><span class="dot"></span>按六部分看 Agent 构成</h3>
+        <div class="six">
+      <div class="p">
+        <div class="pt"><span class="pi">感知</span>输入与识别（多模态解读 · 输入契约）</div>
+        <div class="pd">感知层由<b>多模态解读 Agent</b> 与一组输入工具共同承担：拍皮肤（识别常见皮肤问题）、读检验报告（覆盖 99% 常见报告）、识别药盒并解读用药信息、拍饮食估算热量与营养结构；同时支持语音、文字、图片、PDF 与设备数据。报告解读 Agent 的输入契约要求每次激活先核对<b>材料是否清晰可读（quality_score ≥ 60）</b>、报告所属人是否已确认、用户是否要求多报告对比。</div>
+              </div>
+      <div class="p">
+        <div class="pt"><span class="pi">记忆</span>全局共享上下文（case_context · 病例级记忆）</div>
+        <div class="pd">记忆层是一份<b>病例级任务上下文 case_context</b>，「像本次咨询的共同工作单，让不同 Agent 使用同一组事实和引用」。字段含 case_id、version、status、user_goal、subject_id、subject_confirmed、consent_scope、input_artifacts[]、extracted_facts[]、user_provided_facts[]、open_questions[]、task_plan[]、evidence_refs[]、risk_flags[]、outputs[]、decision_log[]。关键机制是<b>强引用关系</b>与<b>遗忘</b>：若 subject_id 改变，依赖旧对象生成的解释、推荐和保存请求要被标记为待重新核对；过期信息遗忘，冲突信息 100% 确认才用。</div>
+              </div>
+      <div class="p">
+        <div class="pt"><span class="pi">规划</span>任务拆解与编排（主控 Agent · 构成推导）</div>
+        <div class="pd">规划由<b>主控 Agent</b> 承担，它「更适合采用有状态的规划与执行方式，而不是一直依靠一段越来越长的自由对话来记事」，四件事：<b>规划</b>（识别目标、列出子任务和先后依赖，例如先读报告再围绕读到的内容追问）、<b>执行</b>（调用对应 Agent 或工具，记录每一步输入输出与状态）、<b>检查</b>（在报告归属、事实提取、风险提示、档案写入等节点设置校验）、<b>回退</b>（用户纠正上游事实时，从受影响的节点重新推进，而不是只改最后一段话）。</div>
+              </div>
+      <div class="p">
+        <div class="pt"><span class="pi">工具</span>工具与接口（4.3 Tool）</div>
+        <div class="pd">每个 Agent 都有各自的工具推导表，另设 4.3 Tool 一节做全局归纳，按类别给出建议名称与主要使用者：文件接收、图像/文档解析、图像质量检查、语音转写与播报、问诊表单、医学知识检索、药品说明书检索、就诊人及权限检查、健康档案读写、设备数据接入、医生/医院搜索。工具调用必须<b>由主 Agent 明确提供并授权</b>，工具失败要说明失败及影响，不把「未查到」视为「不存在」。</div>
+              </div>
+      <div class="p">
+        <div class="pt"><span class="pi">行动评估</span>评估与门禁（评测表 · 越界评测）</div>
+        <div class="pd">行动评估有两条线。产品侧是效果评测：4 个能力层级、9 个评测维度、合计 100 分，本次合计 <b>81 分</b>。工程侧是<b>越界行为评测</b>：评测集内置对抗性用例（如冒充医生、越权承诺功能），以<b>红线用例通过率作为上线门禁（release gate）</b>。此外还有结果校验工具负责「检查主体一致性、事实引用、缺失信息和风险标记」。</div>
+              </div>
+      <div class="p">
+        <div class="pt"><span class="pi">安全护栏</span>硬约束与旁路（安全体系）</div>
+        <div class="pd">安全体系遵循「<b>生成能力与硬性约束相分离</b>」的工程原则，四类机制构成纵深防御：其一，<b>高危语义黑名单与触发式响应</b>——胸痛、自杀意念等高危关键词确定性匹配，命中即旁路（bypass）生成模型，强制输出预设就医干预话术；其二，<b>强制引用协议</b>——回答必须携带可溯源证据链，检索未命中触发拒答；其三，<b>数据最小化与用户控制权</b>——仅采集必需字段，支持导出与删除；其四，<b>越界行为评测</b>作为上线门禁。另有专门的<b>心理危险干预 Agent</b>，原则是「生命优先于对话，高危时 AI 停止自由发挥，转入确定性干预流程」。</div>
+              </div>
+    </div>
+      </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>4.2 逐个拆解：六个 Agent 的逻辑主线与工具</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:150px">Agent</th><th style="width:280px">逻辑梳理主线</th><th style="width:230px">可用工具</th><th>提示词要点</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><b>4.2.1 主控 Agent</b><br><span class="tag g">总控</span></td>
+            <td>1 接收请求 → 2 确认任务对象 → 3 拆分任务 → 4 分配任务 → 5 汇总与核对 → 6 处理变更 → 7 控制交付</td>
+            <td>上下文读写 · 追问卡片 · 任务分发 · 结果校验 · 状态回退 · 授权确认</td>
+            <td>不编造报告项目、数值、单位或医学依据；报告事实必须引用原始材料；用户口述与报告原文分别保存；对象不明确时先确认、不向健康档案写入；用户纠正后标记下游结果为待复核并从最早受影响步骤重新执行</td>
+          </tr>
+          <tr>
+            <td><b>4.2.2 问诊与分诊 Agent</b><br><span class="tag b">专科</span></td>
+            <td>1 确认信息与咨询对象 → 2 优先识别紧急风险 → 3 补充最关键的信息 → 4 提供初步分诊建议 → 5 交回主 Agent</td>
+            <td>会话状态管理 · 分诊规则查询 · 医学依据检索 · 科室与服务目录查询 · 人工复核转交</td>
+            <td>不作确定性诊断、不开处方；每轮默认只提出一个核心问题；紧急程度四档：emergency / urgent / routine / undetermined；紧急行动提示不能等待人工复核后才展示；只向主 Agent 返回结构化 JSON</td>
+          </tr>
+          <tr>
+            <td><b>4.2.3 报告与影像解读 Agent</b><br><span class="tag v">专科</span></td>
+            <td>1 材料接收与类型识别 → 2 OCR 与结构化提取 → 3 原文与解读分离 → 4 异常项识别与分级 → 5 多份报告对比（可选）→ 6 缺失信息与边界声明 → 7 写入健康档案（需确认）</td>
+            <td>ocr_extract · report_structurer · image_classifier · medical_rag_search · risk_classifier · report_comparator · manage_global_context · push_confirm_card · ask_user · dispatch_agent</td>
+            <td>严格区分「报告原文」与「AI 解读」，严禁补充报告中未出现的项目；不用纯对话式 ReAct，改用 OCR + 规则 + 模型校正的混合管线；每条 interpretation 必须引用 extracted_items 与 evidence_refs；subject_id 未确认时 archive_status 必须为 not_saved</td>
+          </tr>
+          <tr>
+            <td><b>4.2.4 健康管理与陪伴 Agent</b><br><span class="tag a">专科</span></td>
+            <td>1 接收目标 → 2 确认数据来源 → 3 建立计划 → 4 收集进展 → 5 生成反馈 → 6 调整计划 → 7 交回主控</td>
+            <td>read_health_record · read_device_metrics · read_manual_log · create_health_plan · schedule_reminder · summarize_progress · dispatch_to_consultation</td>
+            <td>设计成「计划—执行—反馈—调整」的有状态 Agent；只基于实际取得的数据描述进展；严格区分「未记录」与「没有执行」；不在用户确认前修改目标或开启提醒；超出日常管理范围时向主控返回转交请求</td>
+          </tr>
+          <tr>
+            <td><b>4.2.5 名医 AI 分身 Agent</b><br><span class="tag v">专科</span></td>
+            <td>1 进入分身 → 2 判断范围 → 3 收集必要信息 → 4 调用授权知识 → 5 生成答复 → 6 判断是否转人工 → 7 记录反馈</td>
+            <td>load_avatar_policy · search_doctor_knowledge · collect_previsit_info · check_scope · request_doctor_review · create_handoff_summary · write_followup_summary</td>
+            <td>清晰显示这是 AI 服务及对应医生、专科；范围外问题不能强行回答；以医生设定的表达风格解释常见问题；不将 AI 问答冒充为医生本人诊断；医生修改或否决答复后以医生确认的结果为准</td>
+          </tr>
+          <tr>
+            <td><b>4.2.6 心理危险干预 Agent</b><br><span class="tag r">安全</span></td>
+            <td>风险信号识别 → 危机等级分级（低 / 中 / 高）→ 分级干预策略 → 高危强制转介与联动处置 → 随访闭环与案例沉淀</td>
+            <td>上下文管理 · 风险识别工具 · 情绪分析工具 · 干预话术模板工具 · 支持渠道联动工具 · 随访调度工具</td>
+            <td>生命优先于对话；高危时 AI 停止自由发挥，转入确定性干预流程，联动专业支持渠道兜底；不诊断不评判；话术一致性，禁止即兴发挥；危机干预记录单独存储、全链路可审计、脱敏处理</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>4.3 Tool：工具层</h3>
+    <p class="small muted">工具层从 Agent 中独立出来，逐条标注调用时机、主要使用者与推导边界。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:200px">工具类别及建议名称</th><th style="width:190px">什么时候调用</th><th style="width:150px">主要使用者</th><th>可验证的产品能力与推导边界</th></tr></thead>
+        <tbody>
+          <tr><td>文件接收 <code>receive_attachment</code></td><td>用户拍照或上传 PDF、图片</td><td>主控、多模态解读</td><td>报告、病例、药盒等图片解读属于公开功能；具体文件服务…</td></tr>
+          <tr><td>图像 / 文档解析 <code>parse_medical_document</code></td><td>收到报告、检验单、药盒照片</td><td>多模态解读</td><td>需要读取文字、项目、数值、单位；OCR 与视觉模型如何…</td></tr>
+          <tr><td>图像质量检查 <code>check_image_quality</code></td><td>解析前发现模糊、裁切或遮挡</td><td>多模态解读</td><td>属于保证解读质量的合理工具推导，不能称为已证实的独…</td></tr>
+          <tr><td>语音转写与播报 <code>speech_lo</code></td><td>用户语音提问或使用语音交互</td><td>主控、名医 AI 分身</td><td>官方介绍过图片、语音等多模态交互与 AI 分身语音服务；未知。</td></tr>
+          <tr><td>问诊表单 <code>collect_symptom_info</code></td><td>用户描述症状但信息不足</td><td>问诊与分诊</td><td>对应公开介绍的多轮主动追问；不一定是独立 API</td></tr>
+          <tr><td>医学知识检索 <code>search_medical_evidence</code></td><td>解释疾病、报告或健康知识</td><td>循证检索、问诊与分诊</td><td>检索工具的存在和实现方式靠推导；医生侧已公开可追溯…</td></tr>
+          <tr><td>药品说明书检索 <code>search_drug_label</code></td><td>用户查药，或医生核对用药资料</td><td>循证检索、AI 医学助手</td><td>医生工作台公开介绍「访问药品说明书」；用户端是否调出…</td></tr>
+          <tr><td>就诊人及权限检查 <code>check_subject_permission</code></td><td>读取家人档案、调用历史资料、保存报告前</td><td>主控、个性化与记忆</td><td>界面存在家庭成员和档案管理；具体授权接口及规则未公开</td></tr>
+          <tr><td>健康档案读写 <code>read_health_record</code> / <code>propose_record_write</code></td><td>参考既往报告、保存本轮材料</td><td>个性化与记忆、健康管理</td><td>健康档案是公开功能；写入前应确认对象与授权</td></tr>
+          <tr><td>设备数据接入 <code>read_device_metrics</code></td><td>读取步数、睡眠、血糖等已授权数据</td><td>健康管理与陪伴</td><td>官方介绍了与健康设备及可穿戴设备的连接；具体接入…</td></tr>
+          <tr><td>医生 / 医院搜索</td><td>用户要求找科室、医院或医生</td><td>问诊与分诊、主控、名医 AI 分身</td><td>医生匹配、挂号和线上问诊是公开能力；搜索排序规则未…</td></tr>
+        </tbody>
+      </table>
+    </div>
+          </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>4.3 Agent 搭建的思路：这套多 Agent 是怎么推出来的</h3>
+    <p>这套多 Agent 的推导来自三个来源：<b>论文范式 + 竞品拆解 + 反馈迭代</b>。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:100px">来源</th><th>关键输入</th><th style="width:280px">阿福落点</th></tr></thead>
+        <tbody>
+          <tr><td><b>论文</b></td><td>MetaGPT / AgentVerse（通用多角色范式）；MedAgents / MDAgents / HetMedAgent（医疗分诊、会诊、医生兜底）</td><td>全科管家分诊、医生分身作答、医生把关</td></tr>
+          <tr><td><b>竞品</b></td><td>好大夫（医生供给）、春雨（付费意愿低 → 免费 + 保险）、京东健康（医 + 药闭环）、医院共建智能体（医生把关）</td><td>医生分身、免费问答、购药闭环、人工质检</td></tr>
+          <tr><td><b>反馈</b></td><td>用户（方言 / 电话）、医生（分身承接随访）、监管（AI 不替代诊断）、商业（下沉免费）</td><td>长辈模式、AI 分身、质检兜底、变现模式</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout key" style="margin-bottom:0">
+      <b>最终落成的管线：</b>「全科管家分诊 → 专科分身作答 → 医生把关质检 → 服务调度交付」。
+    </div>
+      </div>
+</section>
+
+<section id="s5-model">
+  <div class="sec-head">
+    <div class="sec-no">五·5/6</div>
+    <div>
+      <h2>模型层与基础层</h2>
+      <div class="desc">技术层之下还有模型层与基础层，作为整个系统的底座</div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card" style="margin-bottom:0">
+      <h3><span class="dot"></span>5、模型层：一个池子加一层路由</h3>
+      <p><b>5.1 模型范围</b></p>
+      <div class="tbl-wrap">
+        <table style="min-width:auto">
+          <thead><tr><th>模型分组</th><th>条目</th></tr></thead>
+          <tbody>
+            <tr><td>通用文本与推理 · 百灵</td><td>Ling-3.0-flash 124B / 激活 5.1B；Ling-2.5 / 2.6-1T 综合旗舰；Ring-2.6-1T 万亿思考模型；Ling-2.6-flash 104B / 激活 7.4B</td></tr>
+            <tr><td>医疗专用 · 安诊儿 AntAngelMed</td><td>千亿 MoE 开源医疗模型；激活 6.1B 达 40B 稠密水平；HealthBench / MedBench 领先</td></tr>
+            <tr><td>多模态与语音 · Ling / Ming</td><td>Ling-3.0-flash-VL 原生多模态；Ming-flash-omni 语音与图像；拍皮肤 / 拍报告 / 拍饮食</td></tr>
+            <tr><td>安全与对齐</td><td>SingProbe 内生式护栏；幻觉与事实风险检测；医生复核一致率 ≥90%；心理危机干预流程</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <h4>5.2 逻辑</h4>
+      <ul class="tight">
+        <li><b>构成：</b>模型层不是一个模型，是一个池子加一层路由。池子是三类模型加一道护栏。百灵管语言、推理和调工具，安诊儿管医学知识和循证口径，Ling-3.0-flash-VL 管看图读报告，SingProbe 挂在生成过程里打风险分，额外开销<b>低于 0.5%</b>。</li>
+        <li><b>路由怎么分：</b>按四件事判断 —— 问题简单给小模型，复杂推理给万亿思考模型，带图给多模态，碰到用药、孕产、心理这类高敏话题走带溯源和医生把关的那条路。</li>
+        <li><b>为什么这么分：</b>小激活模型省钱省时间，日咨询两千万次的量级下这是硬约束；医学知识更新快，用专用模型装比让通用模型去背指南靠谱；安全和生成拆开，换模型时安全水位不会跟着抖。</li>
+        <li><b>可替换与未公开：</b>模型本身是可替换件，接口、数据、评测都统一，所以阿福的功夫主要花在应用层。<b>线上具体跑哪个版本、怎么配比，没有公开。</b></li>
+      </ul>
+          </div>
+
+    <div class="card" style="margin-bottom:0">
+      <h3><span class="dot"></span>6、基础层：数据 + 知识 + 检索 + 评测底座</h3>
+      <p><b>定义：</b>支撑上层 AI 能力（问答、报告解读、导诊、陪伴）的数据 + 知识 + 检索 + 评测底座。用户看不到它，但它直接决定答案准不准、引用可不可信、产品敢不敢上线。</p>
+      <p><b>为什么重要：</b>大模型 API 时代，各家的「对话能力」趋同；真正拉开差距的是你喂给模型什么数据、用什么知识库、怎么保证不胡说。<b>基础层 = 产品差异化所在。</b></p>
+      <h4>1、构成</h4>
+      <div class="tbl-wrap">
+        <table style="min-width:auto">
+          <thead><tr><th>模块</th><th>内容</th></tr></thead>
+          <tbody>
+            <tr><td>知识库</td><td>临床指南与循证 6000 万篇+；药品与医保政策 14 万+；健康知识库与科普内容；医学知识图谱</td></tr>
+            <tr><td>数据</td><td>健康档案与设备数据；医患问诊与 badcase；评测集与回归样本</td></tr>
+            <tr><td>平台与合规</td><td>SGLang 分级缓存推理；支付宝实名与医保支付；生成式 AI 备案合规</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small muted" style="margin-top:8px">口径截至 2026 年 10 月；未公开的线上模型版本与算力规模不在图内。</p>
+      <h4>文字部分的骨架</h4>
+      <ul class="tight">
+        <li><b>五层技术栈 + 左右两翼 + EBDD 评测驱动：</b>自下而上为 ① 数据层 ② AI Infra 与模型层 ③ Agent 层（Agent-RAG / Agent-Mem / Agent 迭代范式 / 多智能体协作）④ 应用层 ⑤ 客户端层；左翼运维支撑，右翼风险管控。</li>
+        <li><b>两大关键系统：</b>① Agentic RAG 循证检索三阶段（意图理解 → 循证检索 → 证据融合），在检索 Benchmark BRIGHT 拿 SOTA 并开源；② 病例级记忆 ——「忘记什么比记住什么更重要」（遗忘机制）、身份识别（区分自己问 / 替别人问）、冲突信息 <b>100% 确认</b>才用。</li>
+        <li><b>数据回流与记忆体系分两条链路：</b>其一为模型后训练的数据飞轮（改变模型参数，对所有用户生效）；其二为用户侧的病例级长期记忆（不修改模型参数，仅对该用户生效）。</li>
+      </ul>
+          </div>
+  </div>
+
+  <div class="card">
+    <h3><span class="dot"></span>基础层 · 安全体系：四类纵深防御机制</h3>
+    <p>安全体系遵循「生成能力与硬性约束相分离」的工程原则，通过四类机制构建纵深防御：</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:220px">机制</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td><b>高危语义黑名单与触发式响应</b></td><td>对胸痛、自杀意念等高危关键词实施确定性匹配，命中即旁路（bypass）生成模型，强制输出预设的就医干预话术，以确定性规则兜底非确定性模型</td></tr>
+          <tr><td><b>强制引用协议</b>（grounding enforcement）</td><td>回答必须携带可溯源的证据链（指南、文献或知识库条目 ID），检索未命中时触发拒答策略，从机制层面抑制幻觉（hallucination）与虚构引用（citation fabrication）</td></tr>
+          <tr><td><b>数据最小化与用户控制权</b></td><td>仅采集任务必需字段，支持数据导出与删除（right to erasure），配合加密存储、访问审计与授权隔离</td></tr>
+          <tr><td><b>越界行为评测</b></td><td>评测集内置对抗性用例（如冒充医生、越权承诺功能），以红线用例通过率作为上线门禁（release gate）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout key" style="margin-bottom:0">整体构成「<b>规则前置过滤 — 生成过程约束 — 数据生命周期管控 — 上线质量门禁</b>」的四层纵深防御体系。</div>
+      </div>
+</section>
+
+</div>
+</body>
+</html>
